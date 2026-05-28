@@ -32,6 +32,60 @@
             max-width: 380px;
             text-align: center;
             border: 1px solid rgba(255,255,255,0.18);
+            transition: all 0.3s ease;
+        }
+
+        /* Sembunyikan tab login */
+        .login-container.hide {
+            display: none;
+        }
+
+        /* Pesan maintenance */
+        .maintenance-box {
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(15px);
+            border-radius: 28px;
+            padding: 45px 35px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.2);
+            animation: fadeInScale 0.5s ease;
+        }
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .maintenance-box h1 {
+            font-size: 2rem;
+            color: #ff9800;
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+        }
+
+        .maintenance-box p {
+            font-size: 1.2rem;
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .maintenance-icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+            animation: spin 2s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         .rainbow-text {
@@ -127,9 +181,8 @@
             box-shadow: 0 10px 25px rgba(0,0,0,0.2);
             z-index: 1000;
             text-align: center;
-            min-width: 250px;
+            min-width: 280px;
             border: 0.5px solid rgba(255,255,255,0.2);
-            letter-spacing: 0.3px;
         }
 
         .toast-iphone.show {
@@ -141,7 +194,8 @@
 </head>
 <body>
 
-<div class="login-container">
+<!-- TAB LOGIN -->
+<div class="login-container" id="loginContainer">
     <div class="rainbow-text">WebzEmpire</div>
     
     <div class="input-group">
@@ -160,8 +214,112 @@
     </div>
 </div>
 
+<!-- PESAN MAINTENANCE (AWALNYA HIDDEN) -->
+<div class="maintenance-box" id="maintenanceBox" style="display: none;">
+    <div class="maintenance-icon">⚙️🔧</div>
+    <h1>Maintenance</h1>
+    <p>Soon, Sedang Masa Maintenance</p>
+    <small style="color: rgba(255,255,255,0.5);">Akan kembali segera</small>
+</div>
+
 <div id="toastMsg" class="toast-iphone"></div>
 
-<script src="auth.js"></script>
+<script>
+    // ========== HARDCODE USERNAME & PASSWORD ==========
+    const VALID_USERNAME = "Lyovnz";
+    const VALID_PASSWORD = "1212";
+    // =================================================
+
+    let toastTimeout = null;
+    let cooldown = false;
+
+    function showToast(message, isError = true) {
+        if (cooldown && isError) return;
+        
+        const toast = document.getElementById('toastMsg');
+        if (!toast) return;
+        
+        toast.textContent = message;
+        toast.style.background = isError ? "rgba(255, 59, 48, 0.95)" : "rgba(52, 199, 89, 0.95)";
+        toast.classList.add('show');
+        
+        if (isError) cooldown = true;
+        
+        if (toastTimeout) clearTimeout(toastTimeout);
+        toastTimeout = setTimeout(() => {
+            toast.classList.remove('show');
+            if (isError) {
+                setTimeout(() => { cooldown = false; }, 500);
+            }
+        }, 10000);
+    }
+
+    // Fungsi login
+    function handleLogin() {
+        const username = document.getElementById('username').value.trim();
+        const password = document.getElementById('password').value.trim();
+        
+        // Cek kosong
+        if (!username || !password) {
+            showToast('❌ Isi username & password dulu!', true);
+            return;
+        }
+        
+        // Cek cooldown
+        if (cooldown) {
+            showToast('⏳ Tunggu 10 detik sebelum mencoba lagi!', true);
+            return;
+        }
+        
+        // Validasi username & password
+        if (username === VALID_USERNAME && password === VALID_PASSWORD) {
+            // ✅ BERHASIL LOGIN
+            showToast(`✅ Berhasil Login. Welcome ${username}`, false);
+            
+            // Sembunyikan tab login
+            const loginContainer = document.getElementById('loginContainer');
+            loginContainer.classList.add('hide');
+            
+            // Tampilkan pesan maintenance
+            setTimeout(() => {
+                loginContainer.style.display = 'none';
+                const maintenanceBox = document.getElementById('maintenanceBox');
+                maintenanceBox.style.display = 'block';
+            }, 500);
+            
+        } else {
+            // ❌ GAGAL LOGIN
+            if (username !== VALID_USERNAME) {
+                showToast('❌ Gagal! Username salah. Pencet Get Akses di Bot Telegram biar bisa masuk web nya!', true);
+            } else if (password !== VALID_PASSWORD) {
+                showToast('❌ Gagal! Password salah. Pencet Get Akses di Bot Telegram biar bisa masuk web nya!', true);
+            } else {
+                showToast('❌ Gagal! Pencet Get Akses di Bot Telegram biar bisa masuk web nya!', true);
+            }
+        }
+    }
+
+    // Event listener
+    document.getElementById('loginBtn').addEventListener('click', handleLogin);
+    
+    // Enter key support
+    document.getElementById('username').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') handleLogin();
+    });
+    document.getElementById('password').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') handleLogin();
+    });
+    
+    // Link ke bot Telegram
+    document.getElementById('getAksesLink').addEventListener('click', function(e) {
+        e.preventDefault();
+        const botUsername = 'EmpireHanZV1_bot';
+        window.open(`https://t.me/${botUsername}`, '_blank');
+        showToast('🤖 Buka bot Telegram & ketik /ckey Lyovnz,1212,99d', true);
+    });
+    
+    console.log('✅ WebzEmpire Ready - Login: Lyovnz / 1212');
+</script>
+
 </body>
 </html>
