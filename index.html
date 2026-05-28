@@ -77,7 +77,6 @@
             border-color: #1e88e5;
         }
 
-        /* TOMBOL LOGIN - KECIL */
         .btn-login {
             width: auto;
             padding: 8px 24px;
@@ -98,7 +97,6 @@
             transform: scale(1.02);
         }
 
-        /* Teks kecil di bawah tombol */
         .login-hint {
             margin-top: 12px;
             font-size: 11px;
@@ -110,35 +108,34 @@
             text-decoration: none;
         }
 
+        /* NOTIF ALA IPHONE */
         .toast-iphone {
             position: fixed;
             bottom: 30px;
             left: 50%;
-            transform: translateX(-50%);
-            background: rgba(0,0,0,0.9);
+            transform: translateX(-50%) translateY(20px);
+            background: rgba(28, 28, 30, 0.95);
             backdrop-filter: blur(20px);
             color: white;
-            padding: 12px 24px;
-            border-radius: 30px;
-            font-size: 14px;
+            padding: 14px 24px;
+            border-radius: 50px;
+            font-size: 15px;
+            font-weight: 500;
             opacity: 0;
             visibility: hidden;
-            transition: 0.3s;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
             z-index: 1000;
-            white-space: nowrap;
+            text-align: center;
+            min-width: 250px;
+            border: 0.5px solid rgba(255,255,255,0.2);
+            letter-spacing: 0.3px;
         }
 
         .toast-iphone.show {
             opacity: 1;
             visibility: visible;
-        }
-
-        .toast-success {
-            background: rgba(52, 199, 89, 0.95);
-        }
-
-        .toast-error {
-            background: rgba(255, 59, 48, 0.95);
+            transform: translateX(-50%) translateY(0);
         }
     </style>
 </head>
@@ -156,10 +153,8 @@
         <input type="password" id="password" placeholder="Masukkan password">
     </div>
     
-    <!-- TOMBOL LOGIN -->
     <button class="btn-login" id="loginBtn">Login</button>
     
-    <!-- TEKS KECIL DI BAWAH TOMBOL -->
     <div class="login-hint">
         Belum punya akses? <a href="#" id="getAksesLink">Klik disini</a>
     </div>
