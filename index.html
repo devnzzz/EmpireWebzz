@@ -1,181 +1,280 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WebzEmpire - Login</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            min-height: 100vh;
-            background: url('ThemaBG.jpg') no-repeat center center fixed;
-            background-size: cover;
-            font-family: -apple-system, 'Segoe UI', sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            backdrop-filter: brightness(0.5);
-            padding: 20px;
-        }
-        .login-container {
-            background: rgba(0, 0, 0, 0.75);
-            backdrop-filter: blur(12px);
-            border-radius: 28px;
-            padding: 35px 30px;
-            width: 100%;
-            max-width: 380px;
-            text-align: center;
-            border: 1px solid rgba(255,255,255,0.18);
-        }
-        .rainbow-text {
-            font-size: 2rem;
-            font-weight: 800;
-            background: linear-gradient(45deg, red, orange, yellow, green, blue, indigo, violet);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            animation: rainbow 2s linear infinite;
-            margin-bottom: 30px;
-        }
-        @keyframes rainbow { to { filter: hue-rotate(360deg); } }
-        .input-group { margin-bottom: 20px; text-align: left; }
-        .input-group label { color: white; font-size: 13px; display: block; margin-bottom: 8px; }
-        .input-group input {
-            width: 100%; padding: 14px; border-radius: 14px;
-            border: 1px solid rgba(255,255,255,0.2);
-            background: rgba(255,255,255,0.1); color: white; font-size: 15px;
-            outline: none;
-        }
-        .btn-login {
-            width: auto; padding: 8px 24px; background: #1e88e5;
-            border: none; border-radius: 24px; font-size: 14px;
-            font-weight: 600; color: white; cursor: pointer;
-            margin-top: 10px; display: inline-block;
-        }
-        .btn-login:hover { background: #0d47a1; transform: scale(1.02); }
-        .login-hint { margin-top: 12px; font-size: 11px; color: rgba(255,255,255,0.5); }
-        .login-hint a { color: #1e88e5; text-decoration: none; }
-        .toast-iphone {
-            position: fixed; bottom: 30px; left: 50%;
-            transform: translateX(-50%) translateY(20px);
-            background: rgba(28,28,30,0.95); backdrop-filter: blur(20px);
-            color: white; padding: 14px 24px; border-radius: 50px;
-            font-size: 15px; opacity: 0; visibility: hidden;
-            transition: all 0.3s; z-index: 1000;
-            white-space: nowrap;
-        }
-        .toast-iphone.show { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
-        .maintenance-box {
-            background: rgba(0,0,0,0.85); backdrop-filter: blur(15px);
-            border-radius: 28px; padding: 45px 35px; text-align: center;
-            display: none;
-        }
-        .maintenance-icon { font-size: 60px; animation: spin 2s linear infinite; }
-        @keyframes spin { to { transform: rotate(360deg); } }
-        .maintenance-box h1 { color: #ff9800; margin-bottom: 15px; }
-        .maintenance-box p { color: white; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WebzEmpire</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Rajdhani:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0a0a0f 0%, #0d1117 40%, #0a0e1a 70%, #050810 100%);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Rajdhani', sans-serif;
+    overflow: hidden; position: relative;
+  }
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background: url('ThemaBG.jpg') center/cover no-repeat;
+    opacity: 0.18; z-index: 0;
+  }
+  .particles { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+  .particle {
+    position: absolute; width: 2px; height: 2px; border-radius: 50%;
+    background: rgba(0,170,255,0.5);
+    animation: float linear infinite;
+  }
+  @keyframes float {
+    0% { transform: translateY(100vh); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { transform: translateY(-10vh) translateX(40px); opacity: 0; }
+  }
+  .wrapper { position: relative; z-index: 10; width: 100%; max-width: 420px; padding: 20px; }
+  .title-wrap { text-align: center; margin-bottom: 28px; }
+  .rainbow-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 38px; font-weight: 900;
+    letter-spacing: 4px;
+    background: linear-gradient(90deg, #ff0080, #ff4400, #ffcc00, #00ff88, #00ccff, #8844ff, #ff0080);
+    background-size: 300% auto;
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: rainbowMove 3s linear infinite;
+    filter: drop-shadow(0 0 12px rgba(100,200,255,0.3));
+  }
+  @keyframes rainbowMove {
+    0% { background-position: 0% center; }
+    100% { background-position: 300% center; }
+  }
+  .subtitle { color: rgba(150,200,255,0.6); font-size: 13px; letter-spacing: 6px; margin-top: 6px; text-transform: uppercase; }
+  .card {
+    background: rgba(10,15,30,0.85);
+    border: 1px solid rgba(0,170,255,0.2);
+    border-radius: 16px; padding: 32px 28px 24px;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 0 40px rgba(0,100,255,0.1), inset 0 1px 0 rgba(255,255,255,0.05);
+    position: relative; overflow: hidden;
+  }
+  .card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(0,170,255,0.5), transparent);
+  }
+  .input-group { margin-bottom: 18px; }
+  .input-label { font-size: 12px; letter-spacing: 2px; color: rgba(0,170,255,0.7); margin-bottom: 8px; display: block; text-transform: uppercase; }
+  .input-field {
+    width: 100%; padding: 13px 16px;
+    background: rgba(0,20,50,0.6);
+    border: 1px solid rgba(0,170,255,0.15);
+    border-radius: 8px; color: #e0f0ff;
+    font-family: 'Rajdhani', sans-serif; font-size: 15px;
+    outline: none; transition: all 0.3s;
+  }
+  .input-field:focus { border-color: rgba(0,170,255,0.5); background: rgba(0,30,70,0.7); box-shadow: 0 0 0 3px rgba(0,170,255,0.08); }
+  .input-field::placeholder { color: rgba(100,150,200,0.4); }
+  .login-btn {
+    width: 100%; padding: 14px;
+    background: linear-gradient(135deg, #0055cc, #0088ff);
+    border: none; border-radius: 8px;
+    color: #fff; font-family: 'Orbitron', sans-serif;
+    font-size: 13px; font-weight: 700; letter-spacing: 2px;
+    cursor: pointer; transition: all 0.3s; margin-top: 4px;
+    text-transform: uppercase;
+    box-shadow: 0 4px 20px rgba(0,100,255,0.3);
+  }
+  .login-btn:hover { background: linear-gradient(135deg, #0066ee, #00aaff); transform: translateY(-1px); }
+  .login-btn:active { transform: translateY(0); }
+  .login-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+  .divider { height: 1px; background: rgba(0,170,255,0.1); margin: 20px 0; }
+  .akses-btn {
+    width: 100%; padding: 14px;
+    background: linear-gradient(135deg, #0044aa, #0077dd);
+    border: 1px solid rgba(0,150,255,0.3);
+    border-radius: 8px; color: #fff;
+    font-family: 'Rajdhani', sans-serif; font-size: 16px; font-weight: 600;
+    cursor: pointer; transition: all 0.3s; letter-spacing: 1px;
+    box-shadow: 0 4px 20px rgba(0,80,200,0.3);
+  }
+  .akses-btn:hover { background: linear-gradient(135deg, #0055cc, #0099ff); transform: translateY(-1px); }
+  .akses-btn:active { transform: translateY(0); }
+  .akses-label { font-size: 11px; color: rgba(100,170,255,0.6); text-align: center; margin-top: 10px; letter-spacing: 1px; }
+
+  /* iPhone-style notification */
+  .notif-wrap { position: fixed; top: 0; left: 0; right: 0; z-index: 9999; display: flex; justify-content: center; pointer-events: none; }
+  .notif-pill {
+    margin-top: 24px;
+    background: rgba(28,28,30,0.97);
+    border-radius: 40px; padding: 12px 20px;
+    display: flex; align-items: center; gap: 12px;
+    min-width: 280px; max-width: 360px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.6), 0 0 0 0.5px rgba(255,255,255,0.1);
+    transform: translateY(-120px) scale(0.85);
+    opacity: 0; pointer-events: none;
+    transition: transform 0.45s cubic-bezier(0.34,1.56,0.64,1), opacity 0.3s ease;
+  }
+  .notif-pill.show { transform: translateY(0) scale(1); opacity: 1; }
+  .notif-pill.hide { transform: translateY(-120px) scale(0.85); opacity: 0; }
+  .notif-icon { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+  .notif-icon.fail { background: linear-gradient(135deg, #ff3b30, #ff6060); }
+  .notif-icon.success { background: linear-gradient(135deg, #34c759, #30d158); }
+  .notif-icon.loading { background: linear-gradient(135deg, #007aff, #5ac8fa); }
+  .notif-body { flex: 1; min-width: 0; }
+  .notif-app { font-size: 11px; color: rgba(255,255,255,0.45); font-family: -apple-system, sans-serif; margin-bottom: 2px; }
+  .notif-msg { font-size: 13px; color: #fff; font-family: -apple-system, sans-serif; line-height: 1.4; font-weight: 500; }
+  .notif-cd { font-size: 12px; color: rgba(255,255,255,0.4); font-family: -apple-system, sans-serif; flex-shrink: 0; min-width: 24px; text-align: right; }
+
+  .scan-line {
+    position: fixed; top: 0; left: 0; width: 100%; height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(0,200,255,0.5), transparent);
+    animation: scan 5s linear infinite; z-index: 1; pointer-events: none;
+  }
+  @keyframes scan { 0% { top: 0; } 100% { top: 100vh; } }
+</style>
 </head>
 <body>
 
-<div id="loginContainer" class="login-container">
-    <div class="rainbow-text">WebzEmpire</div>
-    <div class="input-group">
-        <label>Username</label>
-        <input type="text" id="username" placeholder="Masukkan username">
+<div class="scan-line"></div>
+<div class="particles" id="particles"></div>
+
+<div class="notif-wrap">
+  <div class="notif-pill" id="notifPill">
+    <div class="notif-icon" id="notifIcon">⚠️</div>
+    <div class="notif-body">
+      <div class="notif-app">WebzEmpire</div>
+      <div class="notif-msg" id="notifMsg"></div>
     </div>
-    <div class="input-group">
-        <label>Key</label>
-        <input type="password" id="password" placeholder="Masukkan key dari bot">
-    </div>
-    <button class="btn-login" id="loginBtn">Login</button>
-    <div class="login-hint">
-        Belum punya akses? <a href="#" id="getAksesLink">Klik disini</a>
-    </div>
+    <div class="notif-cd" id="notifCd"></div>
+  </div>
 </div>
 
-<div id="maintenanceBox" class="maintenance-box">
-    <div class="maintenance-icon">⚙️🔧</div>
-    <h1>Maintenance</h1>
-    <p>Soon, Sedang Masa Maintenance</p>
-    <small style="color:rgba(255,255,255,0.5)">Akan kembali segera</small>
+<div class="wrapper">
+  <div class="title-wrap">
+    <div class="rainbow-title">WebzEmpire</div>
+    <div class="subtitle">Secure Access Portal</div>
+  </div>
+  <div class="card">
+    <div class="input-group">
+      <label class="input-label" for="username">Username</label>
+      <input class="input-field" type="text" id="username" placeholder="Masukkan username..." autocomplete="off">
+    </div>
+    <div class="input-group" style="margin-bottom:22px;">
+      <label class="input-label" for="password">Password</label>
+      <input class="input-field" type="password" id="password" placeholder="Masukkan password...">
+    </div>
+    <button class="login-btn" id="loginBtn" onclick="handleLogin()">Login</button>
+    <div class="divider"></div>
+    <button class="akses-btn" onclick="handleAkses()">🔑 Get Akses</button>
+    <div class="akses-label">Belum punya akses? Hubungi admin via bot</div>
+  </div>
 </div>
-
-<div id="toastMsg" class="toast-iphone"></div>
 
 <script>
-    // 🔧 NANTI GANTI URL INI SETELAH BOT JADI DI RENDER 🔧
-    // Ganti 'GANTI_DENGAN_URL_RENDER_KAMU' dengan URL bot asli
-    // Contoh: const BOT_API = 'https://webzempire-bot.onrender.com/api';
-    const BOT_API = 'https://c0f9e5f4b68e9d5cec-103-216-221-82.serveo.net/api';
-    
-    let toastTimeout, cooldown = false;
-    function showToast(msg, isError = true) {
-        if (cooldown && isError) return;
-        const toast = document.getElementById('toastMsg');
-        toast.textContent = msg;
-        toast.style.background = isError ? "rgba(255,59,48,0.95)" : "rgba(52,199,89,0.95)";
-        toast.classList.add('show');
-        if (isError) cooldown = true;
-        if (toastTimeout) clearTimeout(toastTimeout);
-        toastTimeout = setTimeout(() => {
-            toast.classList.remove('show');
-            if (isError) setTimeout(() => { cooldown = false; }, 500);
-        }, 10000);
+  // =============================================
+  // GANTI INI dengan URL Vercel deploy lo nanti
+  // Contoh: 'https://webzempire.vercel.app'
+  const API_BASE = 'https://DOMAIN_VERCEL_LO.vercel.app';
+  // =============================================
+
+  // Spawn particles
+  (function(){
+    var p = document.getElementById('particles');
+    for(var i=0;i<25;i++){
+      var d=document.createElement('div');
+      d.className='particle';
+      d.style.cssText='left:'+Math.random()*100+'%;animation-duration:'+(8+Math.random()*12)+'s;animation-delay:'+(-Math.random()*10)+'s';
+      p.appendChild(d);
     }
-    
-    async function handleLogin() {
-        const username = document.getElementById('username').value.trim();
-        const key = document.getElementById('password').value.trim();
-        
-        if (!username || !key) {
-            showToast('❌ Isi username & key!');
-            return;
-        }
-        if (cooldown) {
-            showToast('⏳ Tunggu 10 detik!');
-            return;
-        }
-        
-        const btn = document.getElementById('loginBtn');
-        btn.disabled = true;
-        btn.textContent = '⏳...';
-        
-        try {
-            const response = await fetch(`${BOT_API}/login`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ username, key })
-            });
-            const result = await response.json();
-            
-            if (result.ok) {
-                showToast(`✅ Berhasil Login. Welcome ${username}`, false);
-                setTimeout(() => {
-                    document.getElementById('loginContainer').style.display = 'none';
-                    document.getElementById('maintenanceBox').style.display = 'block';
-                }, 500);
-            } else {
-                showToast('❌ Gagal! Key tidak valid atau expired.');
-            }
-        } catch (error) {
-            console.log('Error:', error);
-            showToast('❌ Gagal konek ke server bot!');
-        }
-        
-        btn.disabled = false;
-        btn.textContent = 'Login';
+  })();
+
+  var notifTimer=null, countInt=null;
+
+  function showNotif(type, msg, countdown){
+    var pill=document.getElementById('notifPill');
+    var icon=document.getElementById('notifIcon');
+    var msgEl=document.getElementById('notifMsg');
+    var cd=document.getElementById('notifCd');
+
+    pill.classList.remove('show','hide');
+    void pill.offsetWidth;
+
+    if(type==='fail'){ icon.textContent='❌'; icon.className='notif-icon fail'; }
+    else if(type==='success'){ icon.textContent='✅'; icon.className='notif-icon success'; }
+    else { icon.textContent='⏳'; icon.className='notif-icon loading'; }
+
+    msgEl.textContent=msg;
+    if(notifTimer){ clearTimeout(notifTimer); clearInterval(countInt); }
+
+    pill.classList.add('show');
+
+    if(countdown){
+      var left=countdown;
+      cd.textContent=left+'s';
+      countInt=setInterval(function(){
+        left--;
+        cd.textContent=left>0?left+'s':'';
+        if(left<=0) clearInterval(countInt);
+      },1000);
+      notifTimer=setTimeout(function(){
+        pill.classList.remove('show');
+        pill.classList.add('hide');
+      }, countdown*1000);
+    } else {
+      cd.textContent='';
+      notifTimer=setTimeout(function(){
+        pill.classList.remove('show');
+        pill.classList.add('hide');
+      }, 4000);
     }
-    
-    document.getElementById('loginBtn').addEventListener('click', handleLogin);
-    document.getElementById('username').addEventListener('keypress', (e) => { if(e.key === 'Enter') handleLogin(); });
-    document.getElementById('password').addEventListener('keypress', (e) => { if(e.key === 'Enter') handleLogin(); });
-    document.getElementById('getAksesLink').addEventListener('click', (e) => {
-        e.preventDefault();
-        window.open('https://t.me/YOUR_BOT_USERNAME', '_blank');
-    });
-    
-    console.log('✅ WebzEmpire Ready!');
+  }
+
+  async function handleLogin(){
+    var user=document.getElementById('username').value.trim();
+    var pass=document.getElementById('password').value.trim();
+    var btn=document.getElementById('loginBtn');
+
+    if(!user||!pass){
+      showNotif('fail','Username & password harus diisi!', 10);
+      return;
+    }
+
+    btn.disabled=true;
+    btn.textContent='Checking...';
+    showNotif('loading','Memverifikasi akses...', null);
+
+    try {
+      var res=await fetch(API_BASE+'/api/login',{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({username:user, password:pass})
+      });
+      var data=await res.json();
+
+      if(data.ok){
+        showNotif('success', data.msg, null);
+        setTimeout(function(){
+          // Redirect ke halaman utama atau dashboard setelah login
+          // window.location.href = '/dashboard.html';
+        }, 2000);
+      } else {
+        showNotif('fail', data.msg, 10);
+      }
+    } catch(e){
+      showNotif('fail','Gagal konek ke server. Coba lagi.', 10);
+    }
+
+    btn.disabled=false;
+    btn.textContent='Login';
+  }
+
+  function handleAkses(){
+    window.open('https://t.me/HanzzData_bot','_blank');
+  }
+
+  document.getElementById('password').addEventListener('keydown', function(e){
+    if(e.key==='Enter') handleLogin();
+  });
 </script>
 </body>
 </html>
