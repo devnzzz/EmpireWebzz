@@ -1,17 +1,5 @@
 const { MongoClient } = require('mongodb');
 
-const MONGO_URI = process.env.MONGO_URI;
-const DB_NAME = 'webzempire';
-
-let cachedClient = null;
-
-async function getDb() {
-  if (!cachedClient) {
-    cachedClient = await MongoClient.connect(MONGO_URI);
-  }
-  return cachedClient.db(DB_NAME);
-}
-
 module.exports = async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
@@ -26,9 +14,12 @@ module.exports = async function handler(req, res) {
     return res.status(400).json({ ok: false, msg: 'Username & password harus diisi!' });
   }
 
+  let client;
   try {
-    const db = await getDb();
-    const user = await db.collection('users').findOne({ username, password });
+    client = new MongoClient(process.env.MONGO_URI);
+    await client.connect();
+    const db = client.db('webzempire');
+    const user = await db.collection('users').findOne({ username: username, password: password });
 
     if (!user) {
       return res.status(401).json({ ok: false, msg: 'Gagal! Pencet Get Akses Agr Bisa Masuk Web Nya' });
@@ -41,9 +32,12 @@ module.exports = async function handler(req, res) {
       return res.status(401).json({ ok: false, msg: 'Akses lo udah expired! Hubungi admin.' });
     }
 
-    return res.status(200).json({ ok: true, msg: `Berhasil Login. Welcome ${user.username}` });
+    return res.status(200).json({ ok: true, msg: 'Berhasil Login. Welcome ' + user.username });
+
   } catch (err) {
-    console.error(err);
-    return res.status(500).json({ ok: false, msg: 'Server error. Coba lagi.' });
+    console.error('Error:', err.message);
+    return res.status(500).json({ ok: false, msg: 'Server error: ' + err.message });
+  } finally {
+    if (client) await client.close();
   }
 }
