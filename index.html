@@ -28,33 +28,28 @@
   }
   @keyframes float {
     0% { transform: translateY(100vh); opacity: 0; }
-    10% { opacity: 1; }
-    90% { opacity: 1; }
+    10% { opacity: 1; } 90% { opacity: 1; }
     100% { transform: translateY(-10vh) translateX(40px); opacity: 0; }
   }
-  .wrapper { position: relative; z-index: 10; width: 100%; max-width: 420px; padding: 20px; }
+  .wrapper {
+    position: relative; z-index: 10; width: 100%; max-width: 420px; padding: 20px;
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .wrapper.fadeout { opacity: 0; transform: scale(0.95); pointer-events: none; }
   .title-wrap { text-align: center; margin-bottom: 28px; }
   .rainbow-title {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 38px; font-weight: 900;
-    letter-spacing: 4px;
+    font-family: 'Orbitron', sans-serif; font-size: 38px; font-weight: 900; letter-spacing: 4px;
     background: linear-gradient(90deg, #ff0080, #ff4400, #ffcc00, #00ff88, #00ccff, #8844ff, #ff0080);
     background-size: 300% auto;
-    -webkit-background-clip: text; background-clip: text;
-    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
     animation: rainbowMove 3s linear infinite;
     filter: drop-shadow(0 0 12px rgba(100,200,255,0.3));
   }
-  @keyframes rainbowMove {
-    0% { background-position: 0% center; }
-    100% { background-position: 300% center; }
-  }
+  @keyframes rainbowMove { 0% { background-position: 0% center; } 100% { background-position: 300% center; } }
   .subtitle { color: rgba(150,200,255,0.6); font-size: 13px; letter-spacing: 6px; margin-top: 6px; text-transform: uppercase; }
   .card {
-    background: rgba(10,15,30,0.85);
-    border: 1px solid rgba(0,170,255,0.2);
-    border-radius: 16px; padding: 32px 28px 24px;
-    backdrop-filter: blur(20px);
+    background: rgba(10,15,30,0.85); border: 1px solid rgba(0,170,255,0.2);
+    border-radius: 16px; padding: 32px 28px 24px; backdrop-filter: blur(20px);
     box-shadow: 0 0 40px rgba(0,100,255,0.1), inset 0 1px 0 rgba(255,255,255,0.05);
     position: relative; overflow: hidden;
   }
@@ -65,53 +60,38 @@
   .input-group { margin-bottom: 18px; }
   .input-label { font-size: 12px; letter-spacing: 2px; color: rgba(0,170,255,0.7); margin-bottom: 8px; display: block; text-transform: uppercase; }
   .input-field {
-    width: 100%; padding: 13px 16px;
-    background: rgba(0,20,50,0.6);
-    border: 1px solid rgba(0,170,255,0.15);
-    border-radius: 8px; color: #e0f0ff;
-    font-family: 'Rajdhani', sans-serif; font-size: 15px;
-    outline: none; transition: all 0.3s;
+    width: 100%; padding: 13px 16px; background: rgba(0,20,50,0.6);
+    border: 1px solid rgba(0,170,255,0.15); border-radius: 8px; color: #e0f0ff;
+    font-family: 'Rajdhani', sans-serif; font-size: 15px; outline: none; transition: all 0.3s;
   }
   .input-field:focus { border-color: rgba(0,170,255,0.5); background: rgba(0,30,70,0.7); box-shadow: 0 0 0 3px rgba(0,170,255,0.08); }
   .input-field::placeholder { color: rgba(100,150,200,0.4); }
   .login-btn {
-    width: 100%; padding: 14px;
-    background: linear-gradient(135deg, #0055cc, #0088ff);
-    border: none; border-radius: 8px;
-    color: #fff; font-family: 'Orbitron', sans-serif;
-    font-size: 13px; font-weight: 700; letter-spacing: 2px;
-    cursor: pointer; transition: all 0.3s; margin-top: 4px;
-    text-transform: uppercase;
-    box-shadow: 0 4px 20px rgba(0,100,255,0.3);
+    width: 100%; padding: 14px; background: linear-gradient(135deg, #0055cc, #0088ff);
+    border: none; border-radius: 8px; color: #fff; font-family: 'Orbitron', sans-serif;
+    font-size: 13px; font-weight: 700; letter-spacing: 2px; cursor: pointer; transition: all 0.3s;
+    margin-top: 4px; text-transform: uppercase; box-shadow: 0 4px 20px rgba(0,100,255,0.3);
   }
   .login-btn:hover { background: linear-gradient(135deg, #0066ee, #00aaff); transform: translateY(-1px); }
   .login-btn:active { transform: translateY(0); }
   .login-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
   .divider { height: 1px; background: rgba(0,170,255,0.1); margin: 20px 0; }
   .akses-btn {
-    width: 100%; padding: 14px;
-    background: linear-gradient(135deg, #0044aa, #0077dd);
-    border: 1px solid rgba(0,150,255,0.3);
-    border-radius: 8px; color: #fff;
+    width: 100%; padding: 14px; background: linear-gradient(135deg, #0044aa, #0077dd);
+    border: 1px solid rgba(0,150,255,0.3); border-radius: 8px; color: #fff;
     font-family: 'Rajdhani', sans-serif; font-size: 16px; font-weight: 600;
-    cursor: pointer; transition: all 0.3s; letter-spacing: 1px;
-    box-shadow: 0 4px 20px rgba(0,80,200,0.3);
+    cursor: pointer; transition: all 0.3s; letter-spacing: 1px; box-shadow: 0 4px 20px rgba(0,80,200,0.3);
   }
   .akses-btn:hover { background: linear-gradient(135deg, #0055cc, #0099ff); transform: translateY(-1px); }
-  .akses-btn:active { transform: translateY(0); }
   .akses-label { font-size: 11px; color: rgba(100,170,255,0.6); text-align: center; margin-top: 10px; letter-spacing: 1px; }
 
-  /* iPhone-style notification */
+  /* Notif */
   .notif-wrap { position: fixed; top: 0; left: 0; right: 0; z-index: 9999; display: flex; justify-content: center; pointer-events: none; }
   .notif-pill {
-    margin-top: 24px;
-    background: rgba(28,28,30,0.97);
-    border-radius: 40px; padding: 12px 20px;
-    display: flex; align-items: center; gap: 12px;
-    min-width: 280px; max-width: 360px;
+    margin-top: 24px; background: rgba(28,28,30,0.97); border-radius: 40px; padding: 12px 20px;
+    display: flex; align-items: center; gap: 12px; min-width: 280px; max-width: 360px;
     box-shadow: 0 8px 32px rgba(0,0,0,0.6), 0 0 0 0.5px rgba(255,255,255,0.1);
-    transform: translateY(-120px) scale(0.85);
-    opacity: 0; pointer-events: none;
+    transform: translateY(-120px) scale(0.85); opacity: 0; pointer-events: none;
     transition: transform 0.45s cubic-bezier(0.34,1.56,0.64,1), opacity 0.3s ease;
   }
   .notif-pill.show { transform: translateY(0) scale(1); opacity: 1; }
@@ -131,6 +111,78 @@
     animation: scan 5s linear infinite; z-index: 1; pointer-events: none;
   }
   @keyframes scan { 0% { top: 0; } 100% { top: 100vh; } }
+
+  /* Maintenance Screen */
+  .maintenance-overlay {
+    position: fixed; inset: 0; z-index: 99999;
+    background: linear-gradient(135deg, #0a0a0f, #0d1117, #050810);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    opacity: 0; pointer-events: none;
+    transition: opacity 1s ease;
+    padding: 20px;
+  }
+  .maintenance-overlay.show { opacity: 1; pointer-events: auto; }
+
+  .maintenance-content {
+    text-align: center; opacity: 0; transform: translateY(40px) scale(0.9);
+    transition: opacity 0.9s ease 0.7s, transform 0.9s cubic-bezier(0.34,1.56,0.64,1) 0.7s;
+    display: flex; flex-direction: column; align-items: center; gap: 24px;
+  }
+  .maintenance-overlay.show .maintenance-content { opacity: 1; transform: translateY(0) scale(1); }
+
+  .maintenance-img {
+    width: 220px; height: 220px; border-radius: 20px; object-fit: cover;
+    box-shadow: 0 0 40px rgba(0,150,255,0.3), 0 0 80px rgba(0,100,255,0.15);
+    border: 2px solid rgba(0,170,255,0.3);
+  }
+  .maintenance-text-wrap { display: flex; flex-direction: column; gap: 8px; }
+  .maintenance-title {
+    font-family: 'Orbitron', sans-serif; font-size: 24px; font-weight: 900;
+    letter-spacing: 2px; color: #fff;
+    text-shadow: 0 0 20px rgba(0,150,255,0.5);
+  }
+  .maintenance-sub { color: rgba(150,200,255,0.6); font-size: 14px; letter-spacing: 3px; text-transform: uppercase; }
+
+  /* Music Player */
+  .music-player {
+    position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%);
+    z-index: 999999; opacity: 0; pointer-events: none;
+    transition: opacity 0.8s ease 1.5s;
+    background: rgba(15,20,40,0.92); border: 1px solid rgba(0,170,255,0.25);
+    border-radius: 50px; padding: 10px 20px;
+    display: flex; align-items: center; gap: 14px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.5), 0 0 20px rgba(0,100,255,0.1);
+    backdrop-filter: blur(20px); min-width: 240px;
+  }
+  .music-player.show { opacity: 1; pointer-events: auto; }
+  .music-btn {
+    width: 40px; height: 40px; border-radius: 50%; border: none; cursor: pointer;
+    background: linear-gradient(135deg, #0055cc, #0088ff);
+    color: #fff; font-size: 16px; display: flex; align-items: center; justify-content: center;
+    transition: all 0.3s; flex-shrink: 0;
+    box-shadow: 0 4px 15px rgba(0,100,255,0.4);
+  }
+  .music-btn:hover { transform: scale(1.1); box-shadow: 0 6px 20px rgba(0,120,255,0.6); }
+  .music-info { flex: 1; min-width: 0; }
+  .music-title { font-size: 12px; color: #fff; font-weight: 600; letter-spacing: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .music-status { font-size: 10px; color: rgba(100,170,255,0.6); letter-spacing: 1px; margin-top: 2px; }
+  .music-bars {
+    display: flex; align-items: flex-end; gap: 2px; height: 18px; flex-shrink: 0;
+  }
+  .music-bar {
+    width: 3px; background: rgba(0,170,255,0.7); border-radius: 2px;
+    animation: barAnim 0.8s ease infinite;
+  }
+  .music-bar:nth-child(1) { height: 6px; animation-delay: 0s; }
+  .music-bar:nth-child(2) { height: 14px; animation-delay: 0.15s; }
+  .music-bar:nth-child(3) { height: 10px; animation-delay: 0.3s; }
+  .music-bar:nth-child(4) { height: 18px; animation-delay: 0.45s; }
+  .music-bar:nth-child(5) { height: 8px; animation-delay: 0.6s; }
+  @keyframes barAnim {
+    0%, 100% { transform: scaleY(0.4); opacity: 0.5; }
+    50% { transform: scaleY(1); opacity: 1; }
+  }
+  .music-bars.paused .music-bar { animation-play-state: paused; }
 </style>
 </head>
 <body>
@@ -138,6 +190,7 @@
 <div class="scan-line"></div>
 <div class="particles" id="particles"></div>
 
+<!-- Notif -->
 <div class="notif-wrap">
   <div class="notif-pill" id="notifPill">
     <div class="notif-icon" id="notifIcon">⚠️</div>
@@ -149,7 +202,39 @@
   </div>
 </div>
 
-<div class="wrapper">
+<!-- Maintenance Screen -->
+<div class="maintenance-overlay" id="maintenanceOverlay">
+  <div class="maintenance-content">
+    <img class="maintenance-img" src="https://files.catbox.moe/wogbz4.jpg" alt="Maintenance">
+    <div class="maintenance-text-wrap">
+      <div class="maintenance-title"><strong>Sedang MainTance</strong></div>
+      <div class="maintenance-sub">Please Wait . . .</div>
+    </div>
+  </div>
+</div>
+
+<!-- Music Player -->
+<div class="music-player" id="musicPlayer">
+  <button class="music-btn" id="musicBtn" onclick="toggleMusic()">▶</button>
+  <div class="music-info">
+    <div class="music-title">🎵 WebzEmpire BGM</div>
+    <div class="music-status" id="musicStatus">Tap untuk play</div>
+  </div>
+  <div class="music-bars paused" id="musicBars">
+    <div class="music-bar"></div>
+    <div class="music-bar"></div>
+    <div class="music-bar"></div>
+    <div class="music-bar"></div>
+    <div class="music-bar"></div>
+  </div>
+</div>
+
+<audio id="bgMusic" loop>
+  <source src="https://files.catbox.moe/tyixw7.mp3" type="audio/mpeg">
+</audio>
+
+<!-- Login Form -->
+<div class="wrapper" id="mainWrapper">
   <div class="title-wrap">
     <div class="rainbow-title">WebzEmpire</div>
     <div class="subtitle">Secure Access Portal</div>
@@ -171,15 +256,10 @@
 </div>
 
 <script>
-  // =============================================
-  // GANTI INI dengan URL Vercel deploy lo nanti
-  // Contoh: 'https://webzempire.vercel.app'
   const API_BASE = 'https://empire-webzz.vercel.app';
-  // =============================================
 
-  // Spawn particles
   (function(){
-    var p = document.getElementById('particles');
+    var p=document.getElementById('particles');
     for(var i=0;i<25;i++){
       var d=document.createElement('div');
       d.className='particle';
@@ -195,37 +275,58 @@
     var icon=document.getElementById('notifIcon');
     var msgEl=document.getElementById('notifMsg');
     var cd=document.getElementById('notifCd');
-
     pill.classList.remove('show','hide');
     void pill.offsetWidth;
-
     if(type==='fail'){ icon.textContent='❌'; icon.className='notif-icon fail'; }
     else if(type==='success'){ icon.textContent='✅'; icon.className='notif-icon success'; }
     else { icon.textContent='⏳'; icon.className='notif-icon loading'; }
-
     msgEl.textContent=msg;
     if(notifTimer){ clearTimeout(notifTimer); clearInterval(countInt); }
-
     pill.classList.add('show');
-
     if(countdown){
       var left=countdown;
       cd.textContent=left+'s';
-      countInt=setInterval(function(){
-        left--;
-        cd.textContent=left>0?left+'s':'';
-        if(left<=0) clearInterval(countInt);
-      },1000);
-      notifTimer=setTimeout(function(){
-        pill.classList.remove('show');
-        pill.classList.add('hide');
-      }, countdown*1000);
+      countInt=setInterval(function(){ left--; cd.textContent=left>0?left+'s':''; if(left<=0) clearInterval(countInt); },1000);
+      notifTimer=setTimeout(function(){ pill.classList.remove('show'); pill.classList.add('hide'); }, countdown*1000);
     } else {
       cd.textContent='';
-      notifTimer=setTimeout(function(){
-        pill.classList.remove('show');
-        pill.classList.add('hide');
-      }, 4000);
+      notifTimer=setTimeout(function(){ pill.classList.remove('show'); pill.classList.add('hide'); }, 4000);
+    }
+  }
+
+  function showMaintenance(){
+    document.getElementById('mainWrapper').classList.add('fadeout');
+    setTimeout(function(){
+      var overlay=document.getElementById('maintenanceOverlay');
+      overlay.classList.add('show');
+      // Tampilkan music player setelah maintenance muncul
+      setTimeout(function(){
+        document.getElementById('musicPlayer').classList.add('show');
+      }, 1500);
+    }, 800);
+  }
+
+  // Music
+  var isPlaying = false;
+  var audio = document.getElementById('bgMusic');
+
+  function toggleMusic(){
+    var btn=document.getElementById('musicBtn');
+    var status=document.getElementById('musicStatus');
+    var bars=document.getElementById('musicBars');
+    if(isPlaying){
+      audio.pause();
+      btn.textContent='▶';
+      status.textContent='Paused';
+      bars.classList.add('paused');
+      isPlaying=false;
+    } else {
+      audio.play().then(function(){
+        btn.textContent='⏸';
+        status.textContent='Now Playing...';
+        bars.classList.remove('paused');
+        isPlaying=true;
+      }).catch(function(){ status.textContent='Tap lagi bro!'; });
     }
   }
 
@@ -233,48 +334,31 @@
     var user=document.getElementById('username').value.trim();
     var pass=document.getElementById('password').value.trim();
     var btn=document.getElementById('loginBtn');
-
-    if(!user||!pass){
-      showNotif('fail','Username & password harus diisi!', 10);
-      return;
-    }
-
-    btn.disabled=true;
-    btn.textContent='Checking...';
+    if(!user||!pass){ showNotif('fail','Username & password harus diisi!', 10); return; }
+    btn.disabled=true; btn.textContent='Checking...';
     showNotif('loading','Memverifikasi akses...', null);
-
     try {
       var res=await fetch(API_BASE+'/api/login',{
-        method:'POST',
-        headers:{'Content-Type':'application/json'},
+        method:'POST', headers:{'Content-Type':'application/json'},
         body:JSON.stringify({username:user, password:pass})
       });
       var data=await res.json();
-
       if(data.ok){
         showNotif('success', data.msg, null);
-        setTimeout(function(){
-          // Redirect ke halaman utama atau dashboard setelah login
-          // window.location.href = '/dashboard.html';
-        }, 2000);
+        setTimeout(function(){ showMaintenance(); }, 1500);
       } else {
         showNotif('fail', data.msg, 10);
+        btn.disabled=false; btn.textContent='Login';
       }
     } catch(e){
       showNotif('fail','Gagal konek ke server. Coba lagi.', 10);
+      btn.disabled=false; btn.textContent='Login';
     }
-
-    btn.disabled=false;
-    btn.textContent='Login';
   }
 
-  function handleAkses(){
-    window.open('https://t.me/HanzzData_bot','_blank');
-  }
+  function handleAkses(){ window.open('https://t.me/HanzzData_bot','_blank'); }
 
-  document.getElementById('password').addEventListener('keydown', function(e){
-    if(e.key==='Enter') handleLogin();
-  });
+  document.getElementById('password').addEventListener('keydown', function(e){ if(e.key==='Enter') handleLogin(); });
 </script>
 </body>
 </html>
